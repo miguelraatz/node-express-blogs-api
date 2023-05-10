@@ -16,6 +16,7 @@ services:
     command: bash
     # Restarta a imagem caso algo a faça parar
     restart: always
+    user: node
     # Diretório padrão de execução
     working_dir: /app
     # Lista de volumes (diretórios) mapeados de fora para dentro do container
