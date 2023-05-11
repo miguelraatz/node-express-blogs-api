@@ -1,9 +1,9 @@
 const express = require('express');
 const login = require('../controllers/login');
-const validateEmailAndPassword = require('../middlewares/validateEmailAndPassword');
+const validateLogin = require('../middlewares/validateLogin');
 
 const loginRoutes = express.Router();
 
-loginRoutes.post('/', validateEmailAndPassword, login);
+loginRoutes.post('/', validateLogin, login);
 
 module.exports = loginRoutes;
