@@ -3,12 +3,12 @@ const { createToken } = require('../auth/authfunctions');
 
 const createUser = async (req, res) => {
   try {
-    const obj = req.body;
-    const user = await UserService.createUser(obj);
+    const user = req.body;
+    const createdUser = await UserService.createUser(user);
 
-    if (!user) throw Error;
+    if (!createdUser) throw Error;
 
-    const { password: _password, ...userWhitoutPassword } = user.dataValues;
+    const { password: _password, ...userWhitoutPassword } = createdUser.dataValues;
     const token = createToken(userWhitoutPassword);
 
     res.status(201).json({ token });
@@ -17,6 +17,17 @@ const createUser = async (req, res) => {
   }
 };
 
+const getUsers = async (req, res) => {
+  const { data } = req.payload;
+
+  if (!data) throw Error;
+
+  const users = await UserService.getUsers();
+
+  return res.status(200).json(users);
+};
+
 module.exports = {
   createUser,
+  getUsers,
 };
