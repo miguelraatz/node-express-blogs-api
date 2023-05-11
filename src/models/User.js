@@ -1,10 +1,10 @@
-/**
+module.exports = (sequelize, DataTypes) => {
+  /**
  *
  * @param {import('sequelize').Sequelize} sequelize
  * @param {*} DataTypes
  * @returns
  */
-module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     displayName: DataTypes.STRING,
@@ -17,5 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'users',
     underscored: true,
   });
+
+  User.associate = ({ BlogPost }) => {
+    User.hasMany(BlogPost, {
+      as: 'blog_posts',
+      foreignKey: 'userId'
+    });
+  };
   return User;
 }
