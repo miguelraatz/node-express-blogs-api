@@ -9,8 +9,12 @@ const createUser = (body) => {
 
 const getUsers = () => User.findAll({ attributes: { exclude: 'password' } });
 
+const getUserById = (id) => User
+.findOne({ where: { id }, attributes: { exclude: 'password' } });
+
 module.exports = {
   getUserByEmail,
   createUser,
   getUsers,
+  getUserById,
 };
