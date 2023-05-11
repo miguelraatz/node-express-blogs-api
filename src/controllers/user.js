@@ -2,19 +2,15 @@ const { UserService } = require('../services');
 const { createToken } = require('../auth/authfunctions');
 
 const createUser = async (req, res) => {
-  try {
-    const user = req.body;
-    const createdUser = await UserService.createUser(user);
+  const user = req.body;
+  const createdUser = await UserService.createUser(user);
 
-    if (!createdUser) throw Error;
+  if (!createdUser) throw Error;
 
-    const { password: _password, ...userWhitoutPassword } = createdUser.dataValues;
-    const token = createToken(userWhitoutPassword);
+  const { password: _password, ...userWhitoutPassword } = createdUser.dataValues;
+  const token = createToken(userWhitoutPassword);
 
-    res.status(201).json({ token });
-  } catch (err) {
-    console.log(err);
-  }
+  res.status(201).json({ token });
 };
 
 const getUsers = async (req, res) => {
