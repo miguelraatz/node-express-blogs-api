@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes) => {
  * 
  */
   const BlogPost = sequelize.define('BlogPost', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
-    published: DataTypes.DATE,
-    updated: DataTypes.DATE,
+    id: { allowNull: false, type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { allowNull: false, type: DataTypes.STRING },
+    content: { allowNull: false, type: DataTypes.STRING },
+    userId: { type: DataTypes.INTEGER },
+    published: { allowNull: false, type: DataTypes.DATE },
+    updated: { allowNull: false, type: DataTypes.DATE },
   },
   {
     timestamps: false,
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
   BlogPost.associate = ({ User }) => {
     BlogPost.belongsTo(User, {
-      as: 'users',
+      as: 'user',
       foreignKey: 'userId',
     })
   };
