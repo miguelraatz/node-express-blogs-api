@@ -8,6 +8,14 @@ const validatePost = async (req, res, next) => {
   return next();
 };
 
+const validatePostUpdate = async (req, res, next) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+  return next();
+};
+
 const validateCategory = async (req, res, next) => {
   const { categoryIds } = req.body;
 
@@ -26,4 +34,5 @@ const validateCategory = async (req, res, next) => {
 module.exports = {
   validatePost,
   validateCategory,
+  validatePostUpdate,
 };
