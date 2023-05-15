@@ -15,6 +15,7 @@ const {
   getPostById,
   updatePost,
   deletePost,
+  getPostByQuery,
 } = require('../controllers/post');
 
 const postRoutes = express.Router();
@@ -22,6 +23,8 @@ const postRoutes = express.Router();
 postRoutes.post('/', validateJWT, validatePost, validateCategory, createPost);
 
 postRoutes.get('/', validateJWT, getPosts);
+
+postRoutes.get('/search', validateJWT, getPostByQuery);
 
 postRoutes.get('/:id', validateJWT, getPostById);
 
