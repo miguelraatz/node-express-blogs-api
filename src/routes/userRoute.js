@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, getUsers, getUserById } = require('../controllers/user');
+const { createUser, getUsers, getUserById, deleteUser } = require('../controllers/user');
 const validateEmail = require('../middlewares/validateEmail');
 const validateDisplayName = require('../middlewares/validateDisplayName');
 const validatePassword = require('../middlewares/validatePassword');
@@ -12,5 +12,7 @@ userRoutes.post('/', validateDisplayName, validateEmail, validatePassword, creat
 userRoutes.get('/', validateJWT, getUsers);
 
 userRoutes.get('/:id', validateJWT, getUserById);
+
+userRoutes.delete('/me', validateJWT, deleteUser);
 
 module.exports = userRoutes;
