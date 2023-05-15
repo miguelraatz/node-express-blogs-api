@@ -24,15 +24,19 @@ const getPostById = async (req, res) => {
 
 const updatePost = async (req, res) => {
   const { id } = req.params;
-  const { data } = req.payload;
-
-  if (data.id !== Number(id)) {
-    return res.status(401).json({ message: 'Unauthorized user' });
-  }
-
   const { title, content } = req.body;
   const updatedPost = await PostService.updatePost(id, title, content);
   return res.status(200).json(updatedPost);
+};
+
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const deletedPost = await PostService.deletePost(id);
+
+  if (deletedPost === false) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  return res.status(204).json();
 };
 
 module.exports = {
@@ -40,4 +44,5 @@ module.exports = {
   getPosts,
   getPostById,
   updatePost,
+  deletePost,
 };
